@@ -1,5 +1,4 @@
 import { motion, type Variants } from "framer-motion";
-import { Heart } from "lucide-react";
 import { SectionTransition } from "@/components/motion-effect/SectionTransition";
 import { Text } from "@/components/text";
 import { Heading } from "@/components/heading";
