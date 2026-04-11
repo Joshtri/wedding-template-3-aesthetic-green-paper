@@ -3,6 +3,7 @@ import type { Variants } from "framer-motion";
 import { ASSETS } from "../../constants/assets";
 import { Image } from "@/components/image";
 import flowerYellowImg from "../../assets/object/flower-yellow.png";
+import { Text } from "../text";
 
 export interface EnvelopeProps {
   isOpen: boolean;
@@ -42,12 +43,13 @@ export const Envelope: React.FC<EnvelopeProps> = ({
             }}
             className="absolute -top-16 left-0 w-full text-center"
           >
-            <p
+            <Text
               className="text-amber-50 font-script text-2xl sm:text-3xl tracking-widest font-bold"
               style={{ textShadow: "0 1px 4px rgba(120,60,0,0.55), 0 0px 1px rgba(0,0,0,0.4)" }}
+              align="center"
             >
-              The Wedding Presentation
-            </p>
+              The Wedding Invitation
+            </Text>
             <div className="w-12 h-px bg-amber-200 mx-auto mt-2 opacity-50"></div>
           </motion.div>
         )}

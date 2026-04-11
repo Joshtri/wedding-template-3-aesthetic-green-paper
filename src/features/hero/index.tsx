@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ASSETS } from "../../constants/assets";
 import { useHeroAnimations } from "./animations";
 import { Envelope } from "@/components/envelope";
@@ -10,6 +10,13 @@ export default function HeroSection() {
 
   const { envelopeVariants, flapVariants, cardVariants, sealVariants } =
     useHeroAnimations();
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "" : "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <SectionTransition

@@ -14,10 +14,31 @@ import GiftSection from "./features/digital-wedding-gift";
 import ClosingSection from "./features/closing";
 import { useScrollToTop } from "./hooks/use-scroll-to-top";
 import { GuestMessages } from "./features/guest-message";
+import { useAssetPreloader } from "./hooks/useAssetPreloader";
+import { LoadingScreen } from "./features/loading";
+
+const PRELOAD_ASSETS = [
+  ASSETS.VINTAGE_BG,
+  ASSETS.ENVELOPE_TEXTURE_2,
+  ASSETS.ENVELOPE_TEXTURE_3,
+  ASSETS.INVITATION_CONTENT_PAPER,
+  ASSETS.HERO_BACKGROUND,
+  ASSETS.PAPERBOARD_TEXTURE,
+  ASSETS.GROOM_PHOTO,
+  ASSETS.BRIDE_PHOTO,
+  ASSETS.WAX_SEAL,
+  ASSETS.CLOCK_ICON,
+  ASSETS.PAPER_CUT_DECOR,
+  ASSETS.FLOWERS_AESTHETIC,
+  ASSETS.STAMPS_LOVE,
+  ASSETS.FLOWER_RED,
+  ASSETS.CALENDAR,
+];
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { isLoading, progress } = useAssetPreloader(PRELOAD_ASSETS);
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -31,6 +52,11 @@ function App() {
   useScrollToTop();
 
   return (
+    <>
+      <AnimatePresence>
+        {isLoading && <LoadingScreen key="loading" progress={progress} />}
+      </AnimatePresence>
+
     <main className="relative min-h-screen bg-[#fdfcf8] selection:bg-amber-100 selection:text-amber-900 scroll-smooth">
       {/* Background Music (Audio) */}
       <audio ref={audioRef} loop src={ASSETS.BACKGROUND_MUSIC} />
@@ -67,6 +93,7 @@ function App() {
         <ClosingSection />
       </div>
     </main>
+    </>
   );
 }
 
