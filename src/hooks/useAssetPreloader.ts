@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 
 interface PreloaderResult {
   isLoading: boolean;
@@ -17,10 +17,13 @@ function preloadImage(url: string): Promise<void> {
 export function useAssetPreloader(urls: string[]): PreloaderResult {
   const [loaded, setLoaded] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     if (urls.length === 0) {
-      setIsLoading(false);
+      startTransition(() => {
+        setIsLoading(false);
+      });
       return;
     }
 
@@ -34,7 +37,7 @@ export function useAssetPreloader(urls: string[]): PreloaderResult {
     );
 
     Promise.all(promises).then(() => setIsLoading(false));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [urls]); 
 
   return {
     isLoading,
